@@ -65,11 +65,14 @@ export class PockemonService {
     return {...pockemon.toJSON(), ...updatePockemonDto};
   }
 
-  async remove(termino: string) {
-    const pockemon = await this.findOne(termino);
-    await pockemon.deleteOne();
-    return `Pockemon delete ${(await pockemon).name} it's deleted`;
+  async remove(id: string) {
+    const {deletedCount} = await this.pockemonModel.deleteOne({_id: id});
+    if(deletedCount === 0){
+      throw new BadRequestException(`Pockemon with id ${id} no exist`);
+    }
+    return true;
   }
+
   private handleExceptions(error: any){
     if(error.code === 11000) {
       throw new BadRequestException(`Pockemon exists in db ${JSON.stringify(error.keyValue)}`)

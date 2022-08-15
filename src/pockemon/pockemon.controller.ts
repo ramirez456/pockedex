@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PockemonService } from './pockemon.service';
 import { CreatePockemonDto } from './dto/create-pockemon.dto';
 import { UpdatePockemonDto } from './dto/update-pockemon.dto';
+import { ParseMongoIdPipePipe } from '../common/pipes/parse-mongo-id-pipe.pipe';
 
 @Controller('pockemon')
 export class PockemonController {
@@ -28,7 +29,7 @@ export class PockemonController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseMongoIdPipePipe) id: string) {
     return this.pockemonService.remove(id);
   }
 }
