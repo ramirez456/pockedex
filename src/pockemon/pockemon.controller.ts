@@ -18,17 +18,17 @@ export class PockemonController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pockemonService.findOne(+id);
+  findOne(@Param('id') termino: string) {
+    return this.pockemonService.findOne(termino);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePockemonDto: UpdatePockemonDto) {
-    return this.pockemonService.update(+id, updatePockemonDto);
+  update(@Param('id') termino: string, @Body() updatePockemonDto: UpdatePockemonDto) {
+    return this.pockemonService.update(termino, updatePockemonDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.pockemonService.remove(+id);
+    return this.pockemonService.remove(id);
   }
 }
