@@ -36,3 +36,10 @@
 ´´´
   docker-compose up -d
 ´´´
+5.- Para llenar los datos debes de correo
+´´´
+  http://localhost:3000/api/v2/seed
+´´´
+## Stack usado
+* mongoBD
+* Nest
