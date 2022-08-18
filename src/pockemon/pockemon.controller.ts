@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PockemonService } from './pockemon.service';
 import { CreatePockemonDto } from './dto/create-pockemon.dto';
 import { UpdatePockemonDto } from './dto/update-pockemon.dto';
 import { ParseMongoIdPipePipe } from '../common/pipes/parse-mongo-id-pipe.pipe';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('pockemon')
 export class PockemonController {
@@ -14,8 +15,8 @@ export class PockemonController {
   }
 
   @Get()
-  findAll() {
-    return this.pockemonService.findAll();
+  findAll(@Query() paginationDto:PaginationDto) {
+    return this.pockemonService.findAll(paginationDto);
   }
 
   @Get(':id')

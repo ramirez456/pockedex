@@ -5,6 +5,7 @@ import { Pockemon } from './entities/pockemon.entity';
 
 import { CreatePockemonDto } from './dto/create-pockemon.dto';
 import { UpdatePockemonDto } from './dto/update-pockemon.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 @Injectable()
 export class PockemonService {
 
@@ -23,10 +24,10 @@ export class PockemonService {
     }
   }
 
-  async findAll() {
+  async findAll(paginationDto: PaginationDto) {
     let pockemons:Pockemon[];
-    
-    pockemons = await this.pockemonModel.find()
+    const {limit = 10, offset=0} = paginationDto
+    pockemons = await this.pockemonModel.find().limit(limit).skip(offset).sort({no:1})
     
     return pockemons;
   }
