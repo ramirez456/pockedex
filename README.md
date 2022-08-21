@@ -36,7 +36,13 @@
 ´´´
   docker-compose up -d
 ´´´
-5.- Para llenar los datos debes de correo
+5.- Copiar __.env.example__ a __.env__
+6.- Rellenar las variables de entorno faltantes
+7.-  Ejecutar la aplicacion
+´´´
+  npm run start:dev
+´´´
+8.- Para llenar los datos debes de correo
 ´´´
   http://localhost:3000/api/v2/seed
 ´´´
