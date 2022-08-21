@@ -6,13 +6,18 @@ import { Pockemon } from './entities/pockemon.entity';
 import { CreatePockemonDto } from './dto/create-pockemon.dto';
 import { UpdatePockemonDto } from './dto/update-pockemon.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import process from 'process';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class PockemonService {
-
+  private defaultLimit: number
   constructor(
     @InjectModel(Pockemon.name)
-    private readonly pockemonModel: Model<Pockemon>
-  ){}
+    private readonly pockemonModel: Model<Pockemon>,
+    private readonly configService: ConfigService
+  ){
+    this.defaultLimit = this.configService.get<number>('defaultLimit');
+  }
 
   async create(createPockemonDto: CreatePockemonDto) {
     createPockemonDto.name = createPockemonDto.name.toLowerCase()
@@ -25,8 +30,9 @@ export class PockemonService {
   }
 
   async findAll(paginationDto: PaginationDto) {
+
     let pockemons:Pockemon[];
-    const {limit = 10, offset=0} = paginationDto
+    const {limit = this.defaultLimit, offset=0} = paginationDto
     pockemons = await this.pockemonModel.find().limit(limit).skip(offset).sort({no:1})
     
     return pockemons;
